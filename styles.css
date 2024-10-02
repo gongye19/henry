@@ -7,6 +7,8 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
+    min-width: 1024px; /* 设置最小宽度，确保小屏幕上也能显示完整内容 */
+    overflow-x: auto; /* 允许横向滚动 */
 }
 
 header {
@@ -246,7 +248,7 @@ footer nav a {
 }
 
 /* 确保没有其他地方覆盖了这些样式 */
-/* 删除��掉可能存在的突样式 */
+/* 删除掉可能存在的突样式 */
 /*
 .experience-photos img {
     width: 200px;
@@ -382,7 +384,7 @@ footer nav a {
 .personal-info .resume-note {
     margin-top: 1.2rem; /* 减小顶部边距 */
     color: #4a90e2;
-    font-size: 1rem; /* 减小字体大小 */
+    font-size: 1rem; /* ��小字体大小 */
 }
 
 /* 响应式设计调整 */
