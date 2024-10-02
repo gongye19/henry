@@ -32,8 +32,40 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json();
-                addMessage(data.response, false);
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let botMessageElement = null;
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.slice(6);
+                            if (data === '[DONE]') {
+                                break;
+                            }
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.content) {
+                                    if (!botMessageElement) {
+                                        botMessageElement = document.createElement('div');
+                                        botMessageElement.classList.add('message', 'bot-message');
+                                        chatMessages.appendChild(botMessageElement);
+                                    }
+                                    botMessageElement.textContent += parsed.content;
+                                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                                }
+                            } catch (e) {
+                                console.error('Error parsing SSE data:', e);
+                            }
+                        }
+                    }
+                }
             } catch (error) {
                 console.error('Error:', error);
                 addMessage('抱歉，发生了一个错误：' + error.message, false);

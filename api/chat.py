@@ -4,6 +4,7 @@ from zhipuai import ZhipuAI
 import json
 import os
 import traceback
+import asyncio
 
 ZHIPUAI_API_KEY = os.environ.get("ZHIPUAI_API_KEY")
 if not ZHIPUAI_API_KEY:
@@ -21,6 +22,11 @@ system_prompt = '''你需要扮演一个人，中文名字叫做朱晗，英文�
 未来计划：短期计划是做好大语言模型，AIGC方面的工作和研究，长期计可能会考虑从事STEAM方向，PYP教育方面的工作。'''
 
 class handler(BaseHTTPRequestHandler):
+    async def stream_response(self, response):
+        for chunk in response:
+            if chunk.choices[0].delta.content is not None:
+                yield chunk.choices[0].delta.content
+
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
@@ -34,20 +40,30 @@ class handler(BaseHTTPRequestHandler):
             return
 
         try:
+            self.send_response(200)
+            self.send_header('Content-type', 'text/event-stream')
+            self.send_header('Cache-Control', 'no-cache')
+            self.send_header('Connection', 'keep-alive')
+            self.end_headers()
+
             response = client.chat.completions.create(
                 model="glm-4",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": query},
                 ],
-                stream=False
+                stream=True
             )
-            answer = response.choices[0].message.content
 
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps({"response": answer}).encode())
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            for chunk in loop.run_until_complete(self.stream_response(response)):
+                self.wfile.write(f"data: {json.dumps({'content': chunk})}\n\n".encode('utf-8'))
+                self.wfile.flush()
+
+            self.wfile.write(b"data: [DONE]\n\n")
+            self.wfile.flush()
+
         except Exception as e:
             error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
             print(error_message)  # 这会记录到 Vercel 的日志中
