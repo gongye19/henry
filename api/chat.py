@@ -4,7 +4,6 @@ from zhipuai import ZhipuAI
 import json
 import os
 import traceback
-import asyncio
 
 ZHIPUAI_API_KEY = os.environ.get("ZHIPUAI_API_KEY")
 if not ZHIPUAI_API_KEY:
@@ -21,12 +20,31 @@ system_prompt = '''你需要扮演一个人，中文名字叫做朱晗，英文�
 个人情况：单身没有女朋友，有喜欢的女生，但是那个女生不喜欢他。喜欢旅行，喜欢和简单善良的人做朋友。音乐方面喜欢爵士音乐，嘻哈音乐。
 未来计划：短期计划是做好大语言模型，AIGC方面的工作和研究，长期计可能会考虑从事STEAM方向，PYP教育方面的工作。'''
 
-class handler(BaseHTTPRequestHandler):
-    async def stream_response(self, response):
-        for chunk in response:
-            if chunk.choices[0].delta.content is not None:
-                yield chunk.choices[0].delta.content
+def stream_response(response):
+    for chunk in response:
+        if chunk.choices[0].delta.content is not None:
+            yield chunk.choices[0].delta.content
 
+def handle_request(query):
+    try:
+        response = client.chat.completions.create(
+            model="glm-4",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": query},
+            ],
+            stream=True
+        )
+
+        for chunk in stream_response(response):
+            yield f"data: {json.dumps({'content': chunk})}\n\n"
+
+        yield "data: [DONE]\n\n"
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
+        yield f"data: {json.dumps({'error': error_message})}\n\n"
+
+class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
@@ -39,35 +57,19 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": "No message provided"}).encode())
             return
 
-        try:
-            self.send_response(200)
-            self.send_header('Content-type', 'text/event-stream')
-            self.send_header('Cache-Control', 'no-cache')
-            self.send_header('Connection', 'keep-alive')
-            self.end_headers()
+        self.send_response(200)
+        self.send_header('Content-type', 'text/event-stream')
+        self.send_header('Cache-Control', 'no-cache')
+        self.send_header('Connection', 'keep-alive')
+        self.end_headers()
 
-            response = client.chat.completions.create(
-                model="glm-4",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": query},
-                ],
-                stream=True
-            )
-
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            for chunk in loop.run_until_complete(self.stream_response(response)):
-                self.wfile.write(f"data: {json.dumps({'content': chunk})}\n\n".encode('utf-8'))
-                self.wfile.flush()
-
-            self.wfile.write(b"data: [DONE]\n\n")
+        for chunk in handle_request(query):
+            self.wfile.write(chunk.encode('utf-8'))
             self.wfile.flush()
 
-        except Exception as e:
-            error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
-            print(error_message)  # 这会记录到 Vercel 的日志中
-            self.send_response(500)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps({"error": error_message}).encode())
+def main(req, res):
+    if req.method == 'POST':
+        handler().do_POST()
+    else:
+        res.status = 405
+        res.body = "Method Not Allowed"

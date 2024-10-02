@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             try {
                                 const parsed = JSON.parse(data);
+                                if (parsed.error) {
+                                    throw new Error(parsed.error);
+                                }
                                 if (parsed.content) {
                                     if (!botMessageElement) {
                                         botMessageElement = document.createElement('div');
@@ -62,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             } catch (e) {
                                 console.error('Error parsing SSE data:', e);
+                                throw e;
                             }
                         }
                     }
