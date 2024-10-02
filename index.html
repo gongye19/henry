@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/resume/朱晗-简历web.pdf" target="_blank">个人简历</a>
+            </div>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#chatbot">聊天</a></li>
+                <li><a href="#contact">联系我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>欢迎来到我的个人网站</h1>
+            <div class="cta-buttons">
+                <a href="#about" class="btn">了解我</a>
+                <a href="#chatbot" class="btn">与我对话</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>关于我</h2>
+            
+            <div class="about-content">
+                <div class="self-photo">
+                    <img src="/selfPhoto/1.jpeg" alt="个人照片">
+                </div>
+                <div class="personal-info">
+                    <p><strong>姓名：</strong>朱晗</p>
+                    <p><strong>学校：</strong>香港理工大学</p>
+                    <p><strong>性别：</strong>男</p>
+                    <p><strong>年龄：</strong>27</p>
+                    <p><strong>来自：</strong>中国 云南</p>
+                    <p><strong>研究方向：</strong>大语言模型，自然语言处理，世界模型，幻觉问题，Agent，RAG等</p>
+                    <p class="resume-note"><strong>详细内容请参考左上角个人简历</strong></p>
+                </div>
+            </div>
+            
+            <div class="education">
+                <h3>教育经历</h3>
+                <div class="education-list">
+                    <div class="education-item">
+                        <h4><a href="https://www.polyu.edu.hk/" target="_blank" class="institution-link">香港理工大学</a></h4>
+                        <p>应用数学学院</p>
+                        <p>数据科学与分析专业 硕士</p>
+                    </div>
+                    <div class="education-item">
+                        <h4><a href="https://www.scu.edu.cn/" target="_blank" class="institution-link">四川大学</a></h4>
+                        <p>电子信息学院</p>
+                        <p>人工智能专业 硕士</p>
+                    </div>
+                    <div class="education-item">
+                        <h4><a href="https://www.hdu.edu.cn/" target="_blank" class="institution-link">杭州电子科技大学</a></h4>
+                        <p>通信工程学院</p>
+                        <p>通信工程专业 学士</p>
+                    </div>
+                </div>
+                <div class="education-photos">
+                    <img src="eduPhotos/edu1.png" alt="教育照片1">
+                    <img src="eduPhotos/edu2.png" alt="教育照片2">
+                    <img src="eduPhotos/edu3.png" alt="教育照片3">
+                </div>
+            </div>
+            
+            <div class="experience">
+                <h3>实习经历</h3>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <h4><a href="https://www.aia.com.hk/" target="_blank" class="institution-link">友邦保险 AIA</a></h4>
+                        <p>数据科学与产品部</p>
+                        <p>数据科学与人工智能实习生</p>
+                    </div>
+                    <div class="experience-item">
+                        <h4><a href="https://www.idea.edu.cn/" target="_blank" class="institution-link">粤港澳大湾区数字经济研究中心 IDEA</a></h4>
+                        <p>AI平台技术部</p>
+                        <p>NLP算法实习生</p>
+                    </div>
+                    <div class="experience-item">
+                        <h4><a href="https://www.oppo.com/en/" target="_blank" class="institution-link">OPPO</a></h4>
+                        <p>语音语义部</p>
+                        <p>大模型算法实习生</p>
+                    </div>
+                </div>
+                <div class="experience-photos">
+                    <img src="companyLOGO/c1.jpeg" alt="实习照片1">
+                    <img src="companyLOGO/c2.jpeg" alt="实习照片2">
+                    <img src="companyLOGO/c3.png" alt="实习照片3">
+                </div>
+            </div>
+            
+            <div class="interests">
+                <h3>个人兴趣爱好</h3>
+                <p>我的兴趣爱好广泛，热爱户外徒步，跑步，足球，羽毛球；同时喜欢音乐，动漫，电影，编曲；有空时我也玩吉他，钢琴。</p>
+                <div class="hobby-carousel">
+                    <div class="carousel-container">
+                        <img src="hobbies/1.jpeg" alt="兴趣爱好1">
+                        <img src="hobbies/2.jpeg" alt="兴趣爱好2">
+                        <img src="hobbies/3.jpeg" alt="兴趣爱好3">
+                        <img src="hobbies/4.jpeg" alt="兴趣爱好4">
+                        <img src="hobbies/5.jpeg" alt="兴趣爱好5">
+                        <img src="hobbies/6.jpeg" alt="兴趣爱好6">
+                        <img src="hobbies/7.jpeg" alt="兴趣爱好7">
+                        <img src="hobbies/8.jpeg" alt="兴趣爱好8">
+                        
+                    </div>
+                    <button class="carousel-button prev"></button>
+                    <button class="carousel-button next"></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="chatbot">
+            <h2>与我聊天</h2>
+            <div class="chat-container">
+                <div class="chat-messages">
+                    <!-- 消息将在这里动态添加 -->
+                </div>
+                <div class="chat-input-container">
+                    <textarea class="chat-input" placeholder="输入你的消息..." rows="1"></textarea>
+                    <button class="chat-send-btn">发送</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>联系我</h2>
+            <div class="contact-info">
+                <p><strong>微信：</strong>ZZHH0219</p>
+                <p><strong>邮箱：</strong>gy723511500@gmail.com</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 朱晗. All rights reserved.</p>
+        <nav>
+            <a href="#home">首页</a>
+            <a href="#about">关于我</a>
+            <a href="#chatbot">聊天</a>
+            <a href="#contact">联系我</a>
+        </nav>
+        <div class="social-icons">
+            <!-- 在这里添社交媒体图标 -->
+        </div>
+    </footer>
+
+    <script src="carousel.js"></script>
+    <script src="smooth-scroll.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

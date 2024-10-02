@@ -1,0 +1,563 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1.2rem 1rem; /* 增加上下内边距 */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0; /* 添加一些上下内边距 */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 1rem;
+}
+
+nav ul li a, .logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem; /* 设置统一的字体大小 */
+    font-weight: normal; /* 移除粗体 */
+}
+
+.logo a:hover, nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding-top: 70px; /* 增加顶部内边距，为更高的header留出空间 */
+}
+
+section {
+    padding: 2rem;
+}
+
+.hero {
+    background-image: url('/Users/han/Codes/zh_python/web/HomePagePhotos/homepage.jpeg');
+    background-size: cover;
+    background-position: center top; /* 将背景图片定位到 */
+    background-attachment: fixed; /* 固定背景图片 */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    margin: 0.5rem;
+}
+
+.chat-window {
+    border: 1px solid #ccc;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.chat-input {
+    display: flex;
+    padding: 1rem;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form textarea {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+footer nav a {
+    color: #fff;
+    margin: 0 0.5rem;
+    text-decoration: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    nav ul {
+        display: none; /* 在小屏幕上隐藏导航链接 */
+    }
+    
+    /* 这里可以添加汉堡菜单的样式 */
+}
+
+.education, .experience, .interests {
+    margin-top: 3rem;
+    /* 移除背景色 */
+    padding: 2rem;
+    /* 移除边框圆角和阴影 */
+}
+
+.education h3, .experience h3, .interests h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.education-list, .experience-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.education-item, .experience-item {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    margin: 0 0.5rem;
+    text-align: center;
+    background-color: #fff; /* 保留项目的白色背景 */
+    border-radius: 5px; /* 保留项目的圆角 */
+}
+
+.education-item h4, .experience-item h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.experience-item h4 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.experience-item h4 a:hover {
+    color: #007bff; /* 或者其他您喜欢的颜色 */
+}
+
+.education-item h4 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.education-item h4 a:hover {
+    color: #007bff; /* 或者其他您喜欢的颜色 */
+}
+
+.education-photos, .experience-photos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.education-photos img, .experience-photos img {
+    width: 200px;
+    height: auto;
+    margin: 40px 110px;
+    object-fit: cover;
+    /* 移除以下两行 */
+    /* border-radius: 5px; */
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+}
+
+/* 保留原有的响应式设计 */
+@media (max-width: 768px) {
+    .education-list, .experience-list {
+        flex-direction: column;
+    }
+    
+    .education-item, .experience-item {
+        margin: 0.5rem 0;
+    }
+}
+
+.self-photo {
+    width: 100%;
+    max-width: 600px; /* 恢复到原来的最大宽度 */
+    margin: 2rem auto; /* 恢复到原来的边距 */
+    text-align: center;
+}
+
+.self-photo img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* 恢复到原来的最大高度 */
+    object-fit: cover;
+    border-radius: 10px; /* 恢复到原来的圆角大小 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 恢复到原来的阴影效果 */
+}
+
+/* 删除或注释掉以下样式 */
+/*
+.logo a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.logo a:hover {
+    text-decoration: underline;
+}
+*/
+
+.experience {
+    margin-top: 3rem;
+}
+
+.experience-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.experience-item {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    margin: 0 0.5rem;
+    text-align: center;
+}
+
+.experience-item h4 {
+    margin-bottom: 0.5rem;
+}
+
+/* 响���式设计 */
+@media (max-width: 768px) {
+    .experience-list {
+        flex-direction: column;
+    }
+    
+    .experience-item {
+        margin: 0.5rem 0;
+    }
+}
+
+.experience-photos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.experience-photos img {
+    width: 200px;
+    height: auto;
+    margin: 40px 110px; /* 将左右边距调整为140px */
+    object-fit: cover;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 确保垂直居中 */
+    margin-bottom: 2rem;
+}
+
+.self-photo {
+    flex: 0 0 45%; /* 调整这个值来改变图片的宽度 */
+    margin-right: 2rem;
+}
+
+.self-photo img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.personal-info {
+    flex: 1;
+    padding: 1rem;
+    /* 移除背景色 */
+    /* 移除边框圆角和阴影 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 确保文字垂直居中 */
+}
+
+.personal-info p {
+    margin-bottom: 0.5rem;
+}
+
+.personal-info strong {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.personal-info .resume-note {
+    margin-top: 1rem;
+    /* 移除 font-style: italic; */
+    color: #007bff; /* 保持蓝色来突出显示 */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+    }
+
+    .self-photo {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+}
+
+.interests {
+    margin-top: 3rem;
+    /* 移除背景色 */
+    padding: 2rem;
+    /* 移除边框圆角和阴影 */
+}
+
+.interests h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.interests p {
+    line-height: 1.8;
+    color: #555;
+}
+
+.hobby-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* 增加最大宽度 */
+    height: 500px; /* 增加高度 */
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 15px; /* 为整个轮播添加圆角 */
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.carousel-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 15px; /* 为图片添加圆角 */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-button:focus {
+    outline: none;
+}
+
+.carousel-button.prev {
+    left: 20px;
+}
+
+.carousel-button.next {
+    right: 20px;
+}
+
+.carousel-button::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+}
+
+.carousel-button.prev::after {
+    transform: rotate(-135deg);
+}
+
+.carousel-button.next::after {
+    transform: rotate(45deg);
+}
+
+.contact-info {
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-top: 2rem;
+}
+
+.contact-info p {
+    margin-bottom: 1rem;
+}
+
+.contact-info strong {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.institution-link {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: inherit;
+    text-decoration: none;
+}
+
+.institution-link:hover {
+    background-color: #e6f3ff; /* 浅蓝色 */
+    color: #0056b3; /* 深蓝色文字，提高对比度 */
+}
+
+.education-item h4, .experience-item h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+/* 移除这些规则，因为我们现在使用 .institution-link 类 */
+/*
+.education-item h4 a, .experience-item h4 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.education-item h4 a:hover, .experience-item h4 a:hover {
+    color: #007bff;
+}
+*/
+
+/* 移除 .university-link 相关的样式，因为我们现在使用 .institution-link */
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    line-height: 1.4;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #f1f0f0;
+    color: black;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+.chat-input {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    resize: none;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.chat-send-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-send-btn:hover {
+    background-color: #0056b3;
+}
