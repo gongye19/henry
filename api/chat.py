@@ -19,18 +19,21 @@ system_prompt = '''你需要扮演一个人，中文名字叫做朱晗，英文�
 个人情况：单身没有女朋友，有喜欢的女生，但是那个女生不喜欢他。喜欢旅行，喜欢和简单善良的人做朋友。音乐方面喜欢爵士音乐，嘻哈音乐。
 未来计划：短期计划是做好大语言模型，AIGC方面的工作和研究，长期计可能会考虑从事STEAM方向，PYP教育方面的工作。'''
 
-def handle(event, context):
-    if event['httpMethod'] == 'POST':
+class handler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        content_length = int(self.headers['Content-Length'])
+        post_data = self.rfile.read(content_length)
+        data = json.loads(post_data.decode('utf-8'))
+        query = data.get('message')
+
+        if not query:
+            self.send_response(400)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "No message provided"}).encode())
+            return
+
         try:
-            body = json.loads(event['body'])
-            query = body.get('message')
-
-            if not query:
-                return {
-                    'statusCode': 400,
-                    'body': json.dumps({"error": "No message provided"})
-                }
-
             response = client.chat.completions.create(
                 model="glm-4",
                 messages=[
@@ -42,21 +45,20 @@ def handle(event, context):
 
             answer = response.choices[0].message.content
 
-            return {
-                'statusCode': 200,
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                'body': json.dumps({"response": answer})
-            }
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps({"response": answer}).encode())
         except Exception as e:
-            return {
-                'statusCode': 500,
-                'body': json.dumps({"error": str(e)})
-            }
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(e)}).encode())
+
+def main(req, res):
+    if req.method == 'POST':
+        handler().do_POST()
     else:
-        return {
-            'statusCode': 405,
-            'body': "Method Not Allowed"
-        }
+        res.status = 405
+        res.body = "Method Not Allowed"
