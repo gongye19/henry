@@ -246,7 +246,7 @@ footer nav a {
 }
 
 /* 确保没有其他地方覆盖了这些样式 */
-/* 删除��释掉可能存在的突样式 */
+/* 删除��掉可能存在的突样式 */
 /*
 .experience-photos img {
     width: 200px;
@@ -343,29 +343,22 @@ footer nav a {
     align-items: center; /* 改为中间对齐 */
     margin: 2rem auto;
     max-width: 100%; /* 允许内容占据全宽 */
-    gap: 4rem;
-    padding-left: 10%; /* 增加左侧内边距，将内容整体向右移动 */
+    gap: 2rem;
+    padding-left: 5%; /* 增加左侧内边距，将内容整体向右移动 */
+    flex-wrap: wrap; /* 允许在小屏幕上换行 */
 }
 
 .self-photo {
-    flex: 0 0 45%; /* 保持图片区域的宽度 */
-    max-width: 550px; /* 保持最大宽度 */
-    margin-right: 2rem;
-    margin-left: 0; /* 确保没有左边距 */
-}
-
-.self-photo img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex: 1 1 300px; /* 允许灵活调整大小，最小宽度300px */
+    max-width: 100%; /* 确保不超过容器宽度 */
+    margin-right: 0;
+    margin-bottom: 1rem;
 }
 
 .personal-info {
-    flex: 0 0 45%; /* 保持文字区域的宽度 */
-    max-width: 500px; /* 保持最大宽度 */
-    padding: 1.5rem;
+    flex: 1 1 300px; /* 允许灵活调整大小，最小宽度300px */
+    max-width: 100%; /* 确保不超过容器宽度 */
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center; /* 改为中间对齐 */
@@ -411,15 +404,41 @@ footer nav a {
 /* 小屏幕设备的横向滚动调整 */
 @media (max-width: 768px) {
     body {
-        min-width: 1024px;
+        min-width: auto; /* 移除最小宽度限制 */
+        overflow-x: hidden; /* 防止水平滚动 */
+    }
+
+    main {
+        padding-top: 60px; /* 减小顶部内边距 */
+    }
+
+    header {
+        width: 100%; /* 使header宽度自适应 */
     }
 
     .about-content {
-        padding-left: 2%; /* 在小屏幕上进一步减少左侧内边距 */
+        flex-direction: column;
+        padding-left: 0;
     }
 
-    .self-photo {
-        max-width: 100%;
+    .self-photo, .personal-info {
+        flex-basis: 100%;
+    }
+
+    .education-list, .experience-list {
+        flex-direction: column;
+    }
+
+    .education-item, .experience-item {
+        margin: 0.5rem 0;
+    }
+
+    .hobby-carousel {
+        height: 300px; /* 设置一个合适的高度 */
+    }
+
+    .chat-container {
+        width: 100%; /* 使聊天容器宽度自适应 */
     }
 }
 
@@ -642,48 +661,41 @@ footer nav a {
 /* 响应式设计调整 */
 @media (max-width: 768px) {
     body {
-        min-width: 1024px; /* 设置最小宽度，强制横向滚动 */
+        min-width: auto; /* 移除最小宽度限制 */
+        overflow-x: hidden; /* 防止水平滚动 */
     }
 
     main {
-        padding-top: 100px; /* 增加顶部内边距，为固定的header留出更多空间 */
+        padding-top: 60px; /* 减小顶部内边距 */
     }
 
     header {
-        width: 1024px; /* 设置固定宽度 */
-    }
-
-    nav ul {
-        display: flex; /* 在小屏幕上仍然显示导航链接 */
-    }
-
-    .hero {
-        background-attachment: scroll; /* 在移动设备上禁用固定背景 */
-    }
-
-    .education-list, .experience-list {
-        flex-direction: row; /* 保持水平布局 */
-    }
-
-    .education-item, .experience-item {
-        margin: 0 0.5rem; /* 保持原有的水平间距 */
+        width: 100%; /* 使header宽度自适应 */
     }
 
     .about-content {
-        flex-direction: row; /* 保持水平布局 */
+        flex-direction: column;
+        padding-left: 0;
     }
 
-    .self-photo {
-        margin-right: 2rem; /* 保持有的右侧间距 */
-        margin-bottom: 0; /* 移除底部间距 */
+    .self-photo, .personal-info {
+        flex-basis: 100%;
+    }
+
+    .education-list, .experience-list {
+        flex-direction: column;
+    }
+
+    .education-item, .experience-item {
+        margin: 0.5rem 0;
     }
 
     .hobby-carousel {
-        width: 800px; /* 设置固定宽度 */
+        height: 300px; /* 设置一个合适的高度 */
     }
 
     .chat-container {
-        width: 800px; /* 设置固定宽度 */
+        width: 100%; /* 使聊天容器宽度自适应 */
     }
 }
 
