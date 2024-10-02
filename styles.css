@@ -55,7 +55,7 @@ section {
 }
 
 .hero {
-    background-image: url('/Users/han/Codes/zh_python/web/HomePagePhotos/homepage.jpeg');
+    background-image: url('public/HomePagePhotos/homepage.jpeg');
     background-size: cover;
     background-position: center top; /* 将背景图片定位到 */
     background-attachment: fixed; /* 固定背景图片 */
