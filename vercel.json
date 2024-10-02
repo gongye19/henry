@@ -4,10 +4,12 @@
       { "src": "*.html", "use": "@vercel/static" },
       { "src": "*.css", "use": "@vercel/static" },
       { "src": "*.js", "use": "@vercel/static" },
-      { "src": "api/*.py", "use": "@vercel/python" }
+      { "src": "api/*.py", "use": "@vercel/python" },
+      { "src": "public/**", "use": "@vercel/static" }
     ],
     "routes": [
       { "src": "/api/(.*)", "dest": "api/$1.py" },
+      { "handle": "filesystem" },
       { "src": "/(.*)", "dest": "/$1" }
     ]
   }
