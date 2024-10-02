@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message');
         messageElement.classList.add(isUser ? 'user-message' : 'bot-message');
+        messageElement.textContent = content;
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         return messageElement;
@@ -24,10 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
     async function sendMessage() {
         const message = chatInput.value.trim();
         if (message) {
+            console.log("Sending message:", message);
             addMessage(message, true);
             chatInput.value = '';
 
             try {
+                console.log("Sending API request");
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: {
@@ -36,11 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({ message: message }),
                 });
 
+                console.log("API response status:", response.status);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
+                console.log("API response data:", data);
                 const botMessageElement = addMessage('', false);
                 simulateTyping(botMessageElement, data.response);
             } catch (error) {
@@ -58,5 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    addMessage("哈喽，我是朱晗，你也可以叫我Henry。关于我你有什么想问的吗？", false);
+    // 添加初始问候语
+    addMessage("你好！我是朱晗，也可以叫我Henry。很高兴认识你！有什么我可以帮助你的吗？", false);
 });
