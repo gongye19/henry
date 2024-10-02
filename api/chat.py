@@ -3,7 +3,6 @@ from http.server import BaseHTTPRequestHandler
 from zhipuai import ZhipuAI
 import json
 import os
-import traceback
 
 ZHIPUAI_API_KEY = os.environ.get("ZHIPUAI_API_KEY")
 if not ZHIPUAI_API_KEY:
@@ -20,26 +19,6 @@ system_prompt = '''你需要扮演一个人，中文名字叫做朱晗，英文�
 个人情况：单身没有女朋友，有喜欢的女生，但是那个女生不喜欢他。喜欢旅行，喜欢和简单善良的人做朋友。音乐方面喜欢爵士音乐，嘻哈音乐。
 未来计划：短期计划是做好大语言模型，AIGC方面的工作和研究，长期计可能会考虑从事STEAM方向，PYP教育方面的工作。'''
 
-def handle_request(query):
-    try:
-        response = client.chat.completions.create(
-            model="glm-4",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": query},
-            ],
-            stream=True
-        )
-
-        for chunk in response:
-            if chunk.choices[0].delta.content is not None:
-                yield f"data: {json.dumps({'content': chunk.choices[0].delta.content})}\n\n"
-
-        yield "data: [DONE]\n\n"
-    except Exception as e:
-        error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
-        yield f"data: {json.dumps({'error': error_message})}\n\n"
-
 def handle(event, context):
     if event['httpMethod'] == 'POST':
         try:
@@ -52,18 +31,24 @@ def handle(event, context):
                     'body': json.dumps({"error": "No message provided"})
                 }
 
-            def generate():
-                for chunk in handle_request(query):
-                    yield chunk
+            response = client.chat.completions.create(
+                model="glm-4",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": query},
+                ],
+                stream=False
+            )
+
+            answer = response.choices[0].message.content
 
             return {
                 'statusCode': 200,
                 'headers': {
-                    'Content-Type': 'text/event-stream',
-                    'Cache-Control': 'no-cache',
-                    'Connection': 'keep-alive'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
-                'body': ''.join(generate())
+                'body': json.dumps({"response": answer})
             }
         except Exception as e:
             return {
