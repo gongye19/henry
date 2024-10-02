@@ -58,7 +58,7 @@ section {
     background-image: url('public/HomePagePhotos/homepage.jpeg');
     background-size: cover;
     background-position: center top; /* 将背景图片定位到 */
-    background-attachment: fixed; /* 固定背景图片 */
+    background-attachment: fixed; /* 固定背景片 */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -68,13 +68,33 @@ section {
     color: #fff;
 }
 
+.hero h1 {
+    font-size: 4.5rem; /* 增大字体大小 */
+    letter-spacing: 4px; /* 增加字间距 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem; /* 按钮之间的间距 */
+}
+
 .btn {
     display: inline-block;
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.8); /* 半透明背景 */
     color: #fff;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1.5rem; /* 增加内边距 */
     text-decoration: none;
-    margin: 0.5rem;
+    border-radius: 5px; /* 圆角 */
+    font-size: 1.1rem; /* 增大字体大小 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+.btn:hover {
+    background-color: rgba(51, 51, 51, 1); /* 悬停时背景变不透明 */
+    transform: translateY(-2px); /* 轻微上移效果 */
 }
 
 .chat-window {
@@ -136,7 +156,7 @@ footer nav a {
     margin-top: 3rem;
     /* 移除背景色 */
     padding: 2rem;
-    /* 移除边框圆角和阴影 */
+    /* 移边框圆角和阴影 */
 }
 
 .education h3, .experience h3, .interests h3 {
@@ -188,19 +208,53 @@ footer nav a {
 
 .education-photos, .experience-photos {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
+    margin: 2rem 0;
 }
 
-.education-photos img, .experience-photos img {
+.education-photos img {
+    width: 120px;
+    height: auto;
+    margin: 20px 50px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.experience-photos img {
+    width: 150px; /* 将实习经历图片宽度从 120px 进一步减小到 100px */
+    height: auto;
+    margin: 20px 140px; /* 增加左右边距从 70px 到 80px */
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.education-photos img:hover, .experience-photos img:hover {
+    transform: scale(1.05);
+}
+
+/* 响应式设计调整 */
+@media (max-width: 768px) {
+    .education-photos img {
+        width: 120px;
+        margin: 15px 30px;
+    }
+    .experience-photos img {
+        width: 120px; /* 在小屏幕上进一步减小实习经历图片 */
+        margin: 15px 30px; /* 在小屏幕上增加边距 */
+    }
+}
+
+/* 确保没有其他地方覆盖了这些样式 */
+/* 删除��释掉可能存在的突样式 */
+/*
+.experience-photos img {
     width: 200px;
     height: auto;
     margin: 40px 110px;
     object-fit: cover;
-    /* 移除以下两行 */
-    /* border-radius: 5px; */
-    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
 }
+*/
 
 /* 保留原有的响应式设计 */
 @media (max-width: 768px) {
@@ -283,68 +337,89 @@ footer nav a {
     flex-wrap: wrap;
 }
 
-.experience-photos img {
-    width: 200px;
-    height: auto;
-    margin: 40px 110px; /* 将左右边距调整为140px */
-    object-fit: cover;
-}
-
 .about-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* 确保垂直居中 */
-    margin-bottom: 2rem;
+    justify-content: flex-start; /* 左对齐 */
+    align-items: center; /* 改为中间对齐 */
+    margin: 2rem auto;
+    max-width: 100%; /* 允许内容占据全宽 */
+    gap: 4rem;
+    padding-left: 10%; /* 增加左侧内边距，将内容整体向右移动 */
 }
 
 .self-photo {
-    flex: 0 0 45%; /* 调整这个值来改变图片的宽度 */
+    flex: 0 0 45%; /* 保持图片区域的宽度 */
+    max-width: 550px; /* 保持最大宽度 */
     margin-right: 2rem;
+    margin-left: 0; /* 确保没有左边距 */
 }
 
 .self-photo img {
     width: 100%;
     height: auto;
-    max-height: 400px;
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .personal-info {
-    flex: 1;
-    padding: 1rem;
-    /* 移除背景色 */
-    /* 移除边框圆角和阴影 */
+    flex: 0 0 45%; /* 保持文字区域的宽度 */
+    max-width: 500px; /* 保持最大宽度 */
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 确保文字垂直居中 */
+    justify-content: center; /* 改为中间对齐 */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .personal-info p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem; /* 减小段落间距 */
+    font-size: 0.95rem; /* 减小字体大小 */
+    line-height: 1.5;
 }
 
 .personal-info strong {
     font-weight: bold;
     margin-right: 0.5rem;
+    color: #333;
 }
 
 .personal-info .resume-note {
-    margin-top: 1rem;
-    /* 移除 font-style: italic; */
-    color: #007bff; /* 保持蓝色来突出显示 */
+    margin-top: 1.2rem; /* 减小顶部边距 */
+    color: #4a90e2;
+    font-size: 1rem; /* 减小字体大小 */
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
+/* 响应式设计调整 */
+@media (max-width: 1200px) {
     .about-content {
         flex-direction: column;
+        align-items: center;
+        padding-left: 5%; /* 在较小的屏幕上减少左侧内边距 */
+    }
+
+    .self-photo, .personal-info {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+}
+
+/* 小屏幕设备的横向滚动调整 */
+@media (max-width: 768px) {
+    body {
+        min-width: 1024px;
+    }
+
+    .about-content {
+        padding-left: 2%; /* 在小屏幕上进一步减少左侧内边距 */
     }
 
     .self-photo {
-        margin-right: 0;
-        margin-bottom: 1rem;
+        max-width: 100%;
     }
 }
 
@@ -368,8 +443,8 @@ footer nav a {
 .hobby-carousel {
     position: relative;
     width: 100%;
-    max-width: 800px; /* 增加最大宽度 */
-    height: 500px; /* 增加高度 */
+    max-width: 800px; /* 从 800px 减小到 600px */
+    height: 500px; /* 从 500px 减小到 400px */
     margin: 2rem auto;
     overflow: hidden;
     border-radius: 15px; /* 为整个轮播添加圆角 */
@@ -599,7 +674,7 @@ footer nav a {
     }
 
     .self-photo {
-        margin-right: 2rem; /* 保持原有的右侧间距 */
+        margin-right: 2rem; /* 保持有的右侧间距 */
         margin-bottom: 0; /* 移除底部间距 */
     }
 

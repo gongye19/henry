@@ -64,5 +64,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 添加初始问候语
-    addMessage("你好！我是朱晗，也可以叫我Henry。很高兴认识你！有什么我可以帮助你的吗？", false);
+    addMessage("你好呀，关于我有什么想了解的吗？", false);
 });
