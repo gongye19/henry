@@ -3,8 +3,12 @@ from http.server import BaseHTTPRequestHandler
 from zhipuai import ZhipuAI
 import json
 import os
+import traceback
 
 ZHIPUAI_API_KEY = os.environ.get("ZHIPUAI_API_KEY")
+if not ZHIPUAI_API_KEY:
+    raise ValueError("ZHIPUAI_API_KEY environment variable is not set")
+
 client = ZhipuAI(api_key=ZHIPUAI_API_KEY)
 system_prompt = '''你需要扮演一个人，中文名字叫做朱晗，英文名字叫Henry。你需要以朱晗的第一人称视角来回答用户提出的问题。
 朱晗的个人信息如下：
@@ -45,7 +49,9 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"response": answer}).encode())
         except Exception as e:
+            error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
+            print(error_message)  # 这会记录到 Vercel 的日志中
             self.send_response(500)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps({"error": str(e)}).encode())
+            self.wfile.write(json.dumps({"error": error_message}).encode())

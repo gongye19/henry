@@ -266,7 +266,7 @@ footer nav a {
     margin-bottom: 0.5rem;
 }
 
-/* 响���式设计 */
+/* 响式设计 */
 @media (max-width: 768px) {
     .experience-list {
         flex-direction: column;
@@ -560,4 +560,66 @@ footer nav a {
 
 .chat-send-btn:hover {
     background-color: #0056b3;
+}
+
+/* 在文件的最后添加以下内容 */
+
+/* 响应式设计调整 */
+@media (max-width: 768px) {
+    body {
+        min-width: 1024px; /* 设置最小宽度，强制横向滚动 */
+    }
+
+    main {
+        padding-top: 100px; /* 增加顶部内边距，为固定的header留出更多空间 */
+    }
+
+    header {
+        width: 1024px; /* 设置固定宽度 */
+    }
+
+    nav ul {
+        display: flex; /* 在小屏幕上仍然显示导航链接 */
+    }
+
+    .hero {
+        background-attachment: scroll; /* 在移动设备上禁用固定背景 */
+    }
+
+    .education-list, .experience-list {
+        flex-direction: row; /* 保持水平布局 */
+    }
+
+    .education-item, .experience-item {
+        margin: 0 0.5rem; /* 保持原有的水平间距 */
+    }
+
+    .about-content {
+        flex-direction: row; /* 保持水平布局 */
+    }
+
+    .self-photo {
+        margin-right: 2rem; /* 保持原有的右侧间距 */
+        margin-bottom: 0; /* 移除底部间距 */
+    }
+
+    .hobby-carousel {
+        width: 800px; /* 设置固定宽度 */
+    }
+
+    .chat-container {
+        width: 800px; /* 设置固定宽度 */
+    }
+}
+
+/* 添加横向滚动条样式 */
+body {
+    overflow-x: auto;
+}
+
+/* 优化触摸屏滚动体验 */
+@media (pointer: coarse) {
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
 }
