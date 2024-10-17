@@ -226,7 +226,7 @@ footer nav a {
 .experience-photos img {
     width: 150px; /* 将实习经历图片宽度从 120px 进一步减小到 100px */
     height: auto;
-    margin: 20px 140px; /* 增加左右边距从 70px 到 80px */
+    margin: 20px 120px; /* 增加左右边距从 70px 到 80px */
     object-fit: cover;
     transition: transform 0.3s ease;
 }
